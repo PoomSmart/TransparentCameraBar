@@ -1,0 +1,10 @@
+{
+	entry = {
+		bundle = "TransparentCameraBarSettings";
+		cell = PSLinkCell;
+		detail = "TCBPreferenceController";
+		icon = "TCB.png";
+		isController = 1;
+		label = "TransparentCameraBar";
+	};
+}
