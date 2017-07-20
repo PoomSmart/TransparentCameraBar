@@ -2,11 +2,11 @@
 #import "../Prefs.h"
 #import "../../PS.h"
 #import "../apply.x"
+#import <UIKit/UIView+Private.h>
 
 %hook CAMTopBar
 
-- (void)_commonCAMTopBarInitialization
-{
+- (void)_commonCAMTopBarInitialization {
     %orig;
     applyBarEffectCorrectly(self, YES);
 }
@@ -15,12 +15,11 @@
 
 %hook CAMCameraView
 
-- (BOOL)_previewShouldFillScreenForCameraMode: (int)mode
-{
+- (BOOL)_previewShouldFillScreenForCameraMode: (NSInteger)mode {
     return fullScreen && mode == 0 ? YES : %orig;
 }
 
-- (void)_layoutTopBarForOrientation:(int)orientation {
+- (void)_layoutTopBarForOrientation:(NSInteger)orientation {
     %orig;
     applyBarEffectCorrectly(self._topBar, YES);
 }
@@ -33,8 +32,7 @@
 
 %hook CAMTopBar
 
-- (void)setAlpha: (CGFloat)alpha
-{
+- (void)setAlpha: (CGFloat)alpha {
     %orig(opacityTopBar && alpha != 0.0f ? topOpacity : alpha);
 }
 
@@ -48,9 +46,8 @@
 
 %hook CAMBottomBar
 
-- (void)setAlpha: (CGFloat)alpha
-{
-    %orig(opacityBottomBar && alpha != 0.0f ? bottomOpacity : alpha);
+- (void)setAlpha: (CGFloat)alpha {
+    %orig(opacityBottomBar && alpha != 0.0 ? bottomOpacity : alpha);
 }
 
 - (void)_setupHorizontalShutterButtonConstraints {
@@ -68,13 +65,13 @@
             if (layout.firstItem == shutterButton && layout.firstAttribute == NSLayoutAttributeBottom)
                 [deleteConstraints addObject:layout];
         }
-        if (deleteConstraints.count > 0) {
+        if (deleteConstraints.count) {
             for (NSLayoutConstraint *layout in deleteConstraints) {
                 [newConstraints removeObject:layout];
             }
         }
         [self retain];
-        NSLayoutConstraint *centerY = [[NSLayoutConstraint constraintWithItem:shutterButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-4.5f] retain];
+        NSLayoutConstraint *centerY = [[NSLayoutConstraint constraintWithItem:shutterButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.5] retain];
         [newConstraints addObject:centerY];
         [self cam_addConstraints:newConstraints forKey:shutterButtonName];
         [self release];
@@ -104,8 +101,7 @@
 
 %hook CAMPhoneImagePickerSpec
 
-- (BOOL)shouldCreateModeDial
-{
+- (BOOL)shouldCreateModeDial {
     return compactBottomBar ? NO : %orig;
 }
 
@@ -113,18 +109,16 @@
 
 %hook CAMPhoneApplicationSpec
 
-- (BOOL)shouldCreateModeDial
-{
+- (BOOL)shouldCreateModeDial {
     return compactBottomBar ? NO : %orig;
 }
 
 %end
 
-%ctor
-{
+%ctor {
     if (IN_SPRINGBOARD)
         return;
-    HaveObserver()
+    HaveObserver();
     callback();
     if (enabled) {
         openCamera8();

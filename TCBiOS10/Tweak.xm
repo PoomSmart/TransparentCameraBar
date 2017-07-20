@@ -83,7 +83,7 @@
 %ctor {
     if (IN_SPRINGBOARD)
         return;
-    HaveObserver()
+    HaveObserver();
     callback();
     if (enabled) {
         openCamera10();

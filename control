@@ -1,7 +1,7 @@
 Package: org.thebigboss.transparentcamerabar
 Name: TransparentCameraBar
 Depends: mobilesubstrate, preferenceloader, firmware (>= 5.0), ws.hbang.common (>= 1.2), gsc.still-camera | gsc.front-facing-camera
-Version: 1.6
+Version: 1.0.0
 Architecture: iphoneos-arm
 Description: Set opacity, hide and shrink camera bars.
 Author: PoomSmart

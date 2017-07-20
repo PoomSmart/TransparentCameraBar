@@ -121,7 +121,7 @@
         <key>set</key>
         <string>masterSwitch:specifier:</string>
       </dict>
-      
+
       <dict>
         <key>cell</key>
         <string>PSGroupCell</string>
@@ -237,7 +237,7 @@
 			<key>alignment</key>
 			<integer>1</integer>
 			<key>url</key>
-			<string>http://poomsmart.github.io/repo/</string>
+			<string>https://poomsmart.github.io/repo/</string>
 		</dict>
     </array>
   </dict>

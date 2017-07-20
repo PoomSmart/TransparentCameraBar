@@ -5,12 +5,11 @@
 
 %hook PLCameraView
 
-- (BOOL)_previewShouldFillScreenForCameraMode: (int)mode
-{
+- (BOOL)_previewShouldFillScreenForCameraMode: (NSInteger)mode {
     return fullScreen && mode == 0 ? YES : %orig;
 }
 
-- (void)_layoutTopBarForOrientation:(int)orientation {
+- (void)_layoutTopBarForOrientation:(NSInteger)orientation {
     %orig;
     applyBarEffectCorrectly(self._topBar, YES);
 }
@@ -23,8 +22,7 @@
 
 %hook CAMTopBar
 
-- (void)_commonCAMTopBarInitialization
-{
+- (void)_commonCAMTopBarInitialization {
     %orig;
     applyBarEffectCorrectly(self, YES);
 }
@@ -39,8 +37,7 @@
 
 %hook CAMBottomBar
 
-- (void)_layoutForVerticalOrientation
-{
+- (void)_layoutForVerticalOrientation {
     %orig;
     applyBarEffectCorrectly(self, NO);
 }
@@ -54,8 +51,7 @@
 
 %hook CAMPhoneImagePickerSpec
 
-- (BOOL)shouldCreateModeDial
-{
+- (BOOL)shouldCreateModeDial {
     return compactBottomBar ? NO : %orig;
 }
 
@@ -63,18 +59,16 @@
 
 %hook CAMPhoneApplicationSpec
 
-- (BOOL)shouldCreateModeDial
-{
+- (BOOL)shouldCreateModeDial {
     return compactBottomBar ? NO : %orig;
 }
 
 %end
 
-%ctor
-{
+%ctor {
     if (IN_SPRINGBOARD)
         return;
-    HaveObserver()
+    HaveObserver();
     callback();
     if (enabled) {
         openCamera7();

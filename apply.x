@@ -1,6 +1,6 @@
 #import <objc/runtime.h>
 
-static void applyBarEffectCorrectly(UIView *orig, BOOL isTop){
+static void applyBarEffectCorrectly(UIView *orig, BOOL isTop) {
     if (orig == nil)
         return;
     UIView *backgroundView = nil;

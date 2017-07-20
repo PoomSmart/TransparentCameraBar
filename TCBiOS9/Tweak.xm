@@ -5,8 +5,7 @@
 
 %hook CAMBottomBar
 
-- (void)_commonCAMBottomBarInitialization
-{
+- (void)_commonCAMBottomBarInitialization {
     %orig;
     applyBarEffectCorrectly(self, NO);
 }
@@ -37,8 +36,7 @@
 
 %hook CAMViewfinderView
 
-- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight: (CGFloat)proposedHeight
-{
+- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight: (CGFloat)proposedHeight {
     CGFloat orig = %orig;
     if (compactBottomBar)
         orig -= 31 - 4.5;
@@ -49,8 +47,7 @@
 
 %hook CAMViewfinderViewController
 
-- (void)_createModeDialIfNecessary
-{
+- (void)_createModeDialIfNecessary {
     if (compactBottomBar && !IS_IPAD)
         return;
     %orig;
@@ -64,8 +61,7 @@
 
 %hook CAMViewfinderView
 
-- (void)_layoutTopBarForTraitCollection: (id)arg1
-{
+- (void)_layoutTopBarForTraitCollection: (id)arg1 {
     %orig;
     applyBarEffectCorrectly(self.topBar, YES);
 }
@@ -74,18 +70,16 @@
 
 %hook CAMTopBar
 
-- (CGFloat)_opacityForBackgroundStyle: (NSInteger)style
-{
+- (CGFloat)_opacityForBackgroundStyle: (NSInteger)style {
     return hideTopBar ? 0.0 : %orig;
 }
 
 %end
 
-%ctor
-{
+%ctor {
     if (IN_SPRINGBOARD)
         return;
-    HaveObserver()
+    HaveObserver();
     callback();
     if (enabled) {
         openCamera9();

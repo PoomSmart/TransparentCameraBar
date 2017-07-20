@@ -4,29 +4,35 @@
 
 %hook UIImage
 
-+ (UIImage *)imageNamed: (NSString *)name inBundle: (NSBundle *)bundle
-{
++ (UIImage *)imageNamed: (NSString *)name inBundle: (NSBundle *)bundle {
     if ([bundle.bundleIdentifier isEqualToString:@"com.apple.PhotoLibrary"]) {
-        if ([name isEqualToString:@"PLCameraButtonBarBlackShadow.png"] && (hideBottomBar || opacityBottomBar))
-            return nil;
-        if ([name isEqualToString:@"PLCameraButtonBarBlack.png"] && compactBottomBar)
+        if (hideBottomBar || opacityBottomBar) {
+            if ([name isEqualToString:@"PLCameraButtonBarBlackShadow.png"])
+                return nil;
+            if (hideBottomBar) {
+                if ([name isEqualToString:@"PLCameraButtonBarSwitchWellBackground.png"])
+                    name = @"PLCameraButtonBarSwitchWellClear.png";
+                else if ([name isEqualToString:@"PLHandle.png"])
+                    name = @"PLHandleClear.png";
+            }
+        }
+        if (compactBottomBar && [name isEqualToString:@"PLCameraButtonBarBlack.png"])
             return nil;
     }
-    return %orig;
+    return %orig(name, bundle);
 }
 
 %end
 
 %hook PLCameraView
 
-- (CGSize)_displaySizeForPreview
-{
+- (CGSize)_displaySizeForPreview {
     return fullScreen ? [UIScreen mainScreen].bounds.size : %orig;
 }
 
 - (void)layoutSubviews {
     %orig;
-    UIToolbar *bottomButtonBar = isiOS5 ? MSHookIvar<UIToolbar *>(self, "_cameraButtonBar") : MSHookIvar<UIToolbar *>(self, "_bottomButtonBar");
+    UIToolbar *bottomButtonBar = isiOS6Up ? MSHookIvar<UIToolbar *>(self, "_bottomButtonBar") : MSHookIvar<UIToolbar *>(self, "_cameraButtonBar");
     if (opacityBottomBar)
         bottomButtonBar.alpha = bottomOpacity;
 }
@@ -35,8 +41,7 @@
 
 %hook PLCropOverlay
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     %orig;
     if (opacityBottomBar)
         MSHookIvar<PLCropOverlayBottomBar *>(self, "_bottomBar").alpha = bottomOpacity;
@@ -46,17 +51,16 @@
 
 %hook PLCropOverlayBottomBar
 
-- (id)shutterButton
-{
+- (id)shutterButton {
     [self _setVisibility:!hideBottomBar];
     return %orig;
 }
 
-- (void)setButtonBarMode:(int)mode animationDuration:(double)duration {
+- (void)setButtonBarMode:(NSInteger)mode animationDuration:(double)duration {
     %orig(hideBottomBar ? 1 : mode, duration);
 }
 
-- (void)setButtonBarMode:(int)mode {
+- (void)setButtonBarMode:(NSInteger)mode {
     %orig(hideBottomBar ? 1 : mode);
 }
 
@@ -64,31 +68,28 @@
 
 %hook PLCameraButtonBar
 
-- (PLCameraButton *)cameraButton
-{
+- (PLCameraButton *)cameraButton {
     if ([self respondsToSelector:@selector(_setVisibility:)])
         [self _setVisibility:!hideBottomBar];
     else {
         if (hideBottomBar)
-            [self _backgroundView].alpha = 0.0f;
+            [self _backgroundView].alpha = 0.0;
     }
     return %orig;
 }
 
-+ (UIImage *)backgroundImageForButtonBarStyle:(int)buttonBarStyle {
-    return compactBottomBar ? nil : %orig;
++ (UIImage *)backgroundImageForButtonBarStyle:(NSInteger)buttonBarStyle {
+    return compactBottomBar && isiOS6Up ? nil : %orig;
 }
 
 - (id)initWithFrame:(CGRect)frame {
     self = %orig;
-    if (self) {
-        if (opacityBottomBar && isiOS5)
-            self.alpha = bottomOpacity;
-    }
+    if (self && opacityBottomBar && isiOS5)
+        self.alpha = bottomOpacity;
     return self;
 }
 
-- (void)setButtonBarMode:(int)mode {
+- (void)setButtonBarMode:(NSInteger)mode {
     %orig(hideBottomBar ? 1 : mode);
 }
 
@@ -98,9 +99,8 @@
 
 %end
 
-%ctor
-{
-    HaveObserver()
+%ctor {
+    HaveObserver();
     callback();
     if (enabled) {
         openCamera6();
