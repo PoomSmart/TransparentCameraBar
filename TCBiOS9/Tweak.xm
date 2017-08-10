@@ -34,17 +34,6 @@
 
 %end
 
-%hook CAMViewfinderView
-
-- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight: (CGFloat)proposedHeight {
-    CGFloat orig = %orig;
-    if (compactBottomBar)
-        orig -= 31 - 4.5;
-    return orig;
-}
-
-%end
-
 %hook CAMViewfinderViewController
 
 - (void)_createModeDialIfNecessary {
@@ -54,14 +43,21 @@
 }
 
 - (NSInteger)_aspectRatioForMode:(NSInteger)mode {
-    return mode == 0 && fullScreen ? 1 : %orig;
+    return %orig(mode == 0 && fullScreen ? 1 : mode);
 }
 
 %end
 
 %hook CAMViewfinderView
 
-- (void)_layoutTopBarForTraitCollection: (id)arg1 {
+- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight: (CGFloat)proposedHeight {
+    CGFloat orig = %orig;
+    if (compactBottomBar)
+        orig -= 31 - 4.5;
+    return orig;
+}
+
+- (void)_layoutTopBarForTraitCollection:(id)arg1 {
     %orig;
     applyBarEffectCorrectly(self.topBar, YES);
 }

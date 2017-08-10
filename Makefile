@@ -1,10 +1,10 @@
-PACKAGE_VERSION = 1.7.6
+PACKAGE_VERSION = 1.7.8
 
 ifeq ($(SIMULATOR),1)
 	TARGET = simulator:clang:latest
 	ARCHS = x86_64 i386
 else
-	TARGET = iphone:clang:9.0:5.0
+	TARGET = iphone:clang:latest:5.0
 endif
 
 include $(THEOS)/makefiles/common.mk
@@ -40,7 +40,7 @@ internal-stage::
 endif
 
 ifeq ($(SIMULATOR),1)
-SIM_TARGET = TCBiOS10
+SIM_TARGET := TCBiOS10
 all::
 	@rm -f /opt/simject/$(SIM_TARGET).dylib
 	@cp -v $(THEOS_OBJ_DIR)/$(SIM_TARGET).dylib /opt/simject

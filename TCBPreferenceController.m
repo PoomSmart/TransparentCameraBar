@@ -8,7 +8,6 @@
 #import <UIKit/UIImage+Private.h>
 #import <UIKit/UIColor+Private.h>
 #import <dlfcn.h>
-#import "../PS.h"
 #import "Prefs.h"
 
 @interface TCBPreferenceController : HBListController
@@ -25,7 +24,7 @@ HavePrefs()
     killProcess("Camera");
 }
 
-HaveBanner2(@"TCB", isiOS7Up ? UIColor.systemBlueColor : UIColor.blueColor, @"Camera bars, in the better way", UIColor.blueColor)
+HaveBanner2(@"TCB", isiOS7Up ? UIColor.systemBlueColor : UIColor.blueColor, @"Camera bars, in the better way", isiOS7Up ? UIColor.systemBlueColor : UIColor.blueColor)
 
 - (id)init {
     if (self == [super init]) {

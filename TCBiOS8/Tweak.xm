@@ -1,6 +1,5 @@
 #define TWEAK
 #import "../Prefs.h"
-#import "../../PS.h"
 #import "../apply.x"
 #import <UIKit/UIView+Private.h>
 

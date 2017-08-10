@@ -1,5 +1,6 @@
-#import <Foundation/Foundation.h>
+#define UNRESTRICTED_AVAILABILITY
 #import "../PSPrefs.x"
+#import "../PS.h"
 
 NSString *tweakIdentifier = @"com.PS.TransparentCameraBar";
 NSString *enabledKey = @"enabled";
@@ -26,16 +27,16 @@ CGFloat topOpacity;
 CGFloat bottomOpacity;
 
 HaveCallback() {
-	GetPrefs()
-	GetBool2(enabled, YES)
-	GetBool2(fullScreen, YES)
-	GetBool2(opacityTopBar, NO)
-	GetBool2(hideTopBar, NO)
-	GetBool2(opacityBottomBar, NO)
-	GetBool2(hideBottomBar, NO)
-	GetBool2(compactBottomBar, NO)
-	GetCGFloat2(topOpacity, 1.0)
-	GetCGFloat2(bottomOpacity, 1.0)
+    GetPrefs()
+    GetBool2(enabled, YES)
+    GetBool2(fullScreen, YES)
+    GetBool2(opacityTopBar, NO)
+    GetBool2(hideTopBar, NO)
+    GetBool2(opacityBottomBar, NO)
+    GetBool2(hideBottomBar, NO)
+    GetBool2(compactBottomBar, NO)
+    GetCGFloat2(topOpacity, 1.0)
+    GetCGFloat2(bottomOpacity, 1.0)
 }
 
 #endif

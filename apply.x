@@ -8,7 +8,7 @@ static void applyBarEffectCorrectly(UIView *orig, BOOL isTop) {
     if (backgroundView == nil)
         object_getInstanceVariable(orig, "__backgroundView", (void * *)&backgroundView);
     UIView *blurView = nil;
-    NSArray *subviews = backgroundView != nil ? backgroundView.subviews : orig.subviews;
+    NSArray __OF(UIView *) *subviews = backgroundView ? backgroundView.subviews : orig.subviews;
     for (UIView *view in subviews) {
         if ([view isKindOfClass:objc_getClass("_UIBackdropView")] || [view isKindOfClass:objc_getClass("CKCB7BlurView")]) {
             blurView = view;
