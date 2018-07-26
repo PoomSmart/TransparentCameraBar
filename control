@@ -1,10 +1,13 @@
-Package: org.thebigboss.transparentcamerabar
+Package: com.spicat.transparentcamerabar
 Name: TransparentCameraBar
 Depends: mobilesubstrate, preferenceloader, firmware (>= 5.0), ws.hbang.common (>= 1.2), gsc.still-camera | gsc.front-facing-camera
+Replaces: org.thebigboss.transparentcamerabar
+Provides: org.thebigboss.transparentcamerabar
+Conflicts: org.thebigboss.transparentcamerabar
 Version: 1.0.0
 Architecture: iphoneos-arm
 Description: Set opacity, hide and shrink camera bars.
-Author: PoomSmart
-Maintainer: PoomSmart
+Author: SpicaT
+Maintainer: SpicaT
 Section: Tweaks
 Icon: file:///Library/PreferenceBundles/TransparentCameraBarSettings.bundle/TCB@2x.png

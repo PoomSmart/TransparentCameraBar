@@ -4,7 +4,7 @@
 
 %hook CAMBottomBar
 
-- (void)_commonCAMBottomBarInitializationInitWithLayoutStyle: (NSInteger)style {
+- (void)_commonCAMBottomBarInitializationInitWithLayoutStyle:(NSInteger)style {
     %orig;
     applyBarEffectCorrectly(self, NO);
 }
@@ -53,14 +53,14 @@
 
 %hook CAMViewfinderView
 
-- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight: (CGFloat)proposedHeight {
+- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight:(CGFloat)proposedHeight {
     CGFloat orig = %orig;
     if (compactBottomBar)
         orig -= 31 - 4.5;
     return orig;
 }
 
-- (void)_layoutTopBarForLayoutStyle:(id)arg1 {
+- (void)_layoutTopBarForLayoutStyle:(NSInteger)layoutStyle {
     %orig;
     applyBarEffectCorrectly(self.topBar, YES);
 }
@@ -73,7 +73,7 @@
 
 %hook CAMTopBar
 
-- (CGFloat)_opacityForBackgroundStyle: (NSInteger)style {
+- (CGFloat)_opacityForBackgroundStyle:(NSInteger)style {
     return hideTopBar ? 0.0 : opacityTopBar ? topOpacity : %orig;
 }
 

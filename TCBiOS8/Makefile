@@ -2,7 +2,7 @@ ifeq ($(SIMULATOR),1)
 	TARGET = simulator:clang:latest:8.0
 	ARCHS = x86_64 i386
 else
-	TARGET = iphone:clang:9.0:8.0
+	TARGET = iphone:clang:8.1:8.0
 endif
 
 include $(THEOS)/makefiles/common.mk
