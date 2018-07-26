@@ -50,7 +50,7 @@
 
 %hook CAMViewfinderView
 
-- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight: (CGFloat)proposedHeight {
+- (CGFloat)_interpolatedBottomBarHeightWithProposedHeight:(CGFloat)proposedHeight {
     CGFloat orig = %orig;
     if (compactBottomBar)
         orig -= 31 - 4.5;
@@ -66,7 +66,7 @@
 
 %hook CAMTopBar
 
-- (CGFloat)_opacityForBackgroundStyle: (NSInteger)style {
+- (CGFloat)_opacityForBackgroundStyle:(NSInteger)style {
     return hideTopBar ? 0.0 : %orig;
 }
 

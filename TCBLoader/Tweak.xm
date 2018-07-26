@@ -1,4 +1,4 @@
-#import "../PS.h"
+#import "../../PS.h"
 #import <dlfcn.h>
 
 %ctor {
@@ -12,6 +12,6 @@
         dlopen("/Library/MobileSubstrate/DynamicLibraries/TCB/TCBiOS7.dylib", RTLD_LAZY);
 #if !__LP64__
     else
-        dlopen("/Library/Application Support/TCB/TCBiOS56.dylib", RTLD_LAZY);
+        dlopen("/Library/MobileSubstrate/DynamicLibraries/TCB/TCBiOS56.dylib", RTLD_LAZY);
 #endif
 }

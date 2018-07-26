@@ -14,7 +14,7 @@
 
 %hook CAMCameraView
 
-- (BOOL)_previewShouldFillScreenForCameraMode: (NSInteger)mode {
+- (BOOL)_previewShouldFillScreenForCameraMode:(NSInteger)mode {
     return fullScreen && mode == 0 ? YES : %orig;
 }
 
@@ -31,7 +31,7 @@
 
 %hook CAMTopBar
 
-- (void)setAlpha: (CGFloat)alpha {
+- (void)setAlpha:(CGFloat)alpha {
     %orig(opacityTopBar && alpha != 0.0f ? topOpacity : alpha);
 }
 
@@ -45,7 +45,7 @@
 
 %hook CAMBottomBar
 
-- (void)setAlpha: (CGFloat)alpha {
+- (void)setAlpha:(CGFloat)alpha {
     %orig(opacityBottomBar && alpha != 0.0 ? bottomOpacity : alpha);
 }
 

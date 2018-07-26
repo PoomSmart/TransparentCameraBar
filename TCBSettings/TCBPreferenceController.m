@@ -8,7 +8,7 @@
 #import <UIKit/UIImage+Private.h>
 #import <UIKit/UIColor+Private.h>
 #import <dlfcn.h>
-#import "Prefs.h"
+#import "../Prefs.h"
 
 @interface TCBPreferenceController : HBListController
 @property(retain, nonatomic) PSSpecifier *fsSpec;
@@ -33,7 +33,8 @@ HaveBanner2(@"TCB", isiOS7Up ? UIColor.systemBlueColor : UIColor.blueColor, @"Ca
                 HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
                 appearanceSettings.tintColor = UIColor.systemBlueColor;
                 appearanceSettings.tableViewCellTextColor = UIColor.systemBlueColor;
-                appearanceSettings.invertedNavigationBar = YES;
+                appearanceSettings.navigationBarBackgroundColor = appearanceSettings.tintColor;
+                appearanceSettings.navigationBarTitleColor = UIColor.whiteColor;
                 self.hb_appearanceSettings = appearanceSettings;
             }
             UIButton *heart = [[[UIButton alloc] initWithFrame:CGRectZero] autorelease];
